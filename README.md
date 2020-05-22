@@ -4,6 +4,10 @@ A simple browser game inspired by ASTEROIDS. A friend of mine came up with the n
 ## Gameplay
 Use arrows to rotate your syringe and apply thrust. Press the spacebar to activate the tip of the syringe in order to INJECT steroids into butts. Each level the arm icon in the top left corner gets beefier. As you hold INJECT your juice meter empties in the top right corner of the screen. Medicine bottles appear randomly on screen, grab one to fill up your juice!
 
+This thing actually has gamepad support. Plug in a gamepad and tap a button or something (varies between browsers) and it'll prompt you to set up the gamepad.
+
+After you inject a butt with steroids your syringe bounces back away from it. When it bounces back it also gets a turning boost so after a successful JUICE UP you can do a 180 almost instantly which lets you bounce between a few butts quickly.
+
 ## Nods
 Its designed to look pixelly and like an Atari game. It flickers sprites in order to make them partially transparent. It looks like this on purpose.
 

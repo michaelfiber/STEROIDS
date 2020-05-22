@@ -83,9 +83,11 @@ function main(canvas) {
         let armSSImage = yield loadImage('/game/ss_arm_16x16_10.png');
         canvas.width = 320;
         canvas.height = 192;
-        let context = canvas.getContext('2d');
+        let contextOrNull = canvas.getContext('2d');
+        if (!contextOrNull)
+            throw 'Could not get context';
+        let context = contextOrNull;
         context.font = '8px Arial';
-        console.log('got font image');
         let fontCoords = getSpritesheetCoordinates(16, 16, fontSSImage);
         function getGameFontCode(ascii) {
             if (ascii >= 65 && ascii <= 90)
@@ -172,8 +174,6 @@ function main(canvas) {
             width: 16,
             height: 16
         };
-        console.log('game assets loaded');
-        console.log(canvas);
         context.fillStyle = 'red';
         context.fillRect(0, 0, 320, 192);
         let bullets = [];
@@ -208,7 +208,10 @@ function main(canvas) {
             'inject'
         ];
         let gpMap = {};
-        let controlPanel = document.getElementById('control-panel');
+        let controlPanelOrNull = document.querySelector('#control-panel');
+        if (!controlPanelOrNull)
+            throw 'Could not get control panel';
+        let controlPanel = controlPanelOrNull;
         function updateControllerMapDisplay() {
             while (controlPanel.childNodes.length > 0)
                 controlPanel.removeChild(controlPanel.childNodes[0]);
@@ -251,7 +254,6 @@ function main(canvas) {
             }
         }
         function handleGamepadConnection(e) {
-            console.log('handleGamepadConnection');
             let gamepadName = e.gamepad.index + e.gamepad.id;
             connectedGamepads[gamepadName] = {
                 gamepad: e.gamepad
