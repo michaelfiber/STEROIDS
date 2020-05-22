@@ -6,4 +6,5 @@ Use arrows to rotate your syringe and apply thrust. Press the spacebar to activa
 
 ## Nods
 Its designed to look pixelly and like an Atari game. It flickers sprites in order to make them partially transparent. It looks like this on purpose.
+
 ![The title screen](/steroids01.png) ![Syringe in action](/steroids02.png) ![Juice meter is empty bro!](/steroids03.png)
