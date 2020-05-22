@@ -133,14 +133,15 @@ async function main(canvas: HTMLCanvasElement) {
     let armSSImage = await loadImage('/game/ss_arm_16x16_10.png');
 
     // Set up the canvas
-    //let canvas = document.getElementById('game') as HTMLCanvasElement;
     canvas.width = 320;
     canvas.height = 192;
-    let context = canvas.getContext('2d') as CanvasRenderingContext2D;
+
+    let contextOrNull = canvas.getContext('2d');
+    if (!contextOrNull) throw 'Could not get context';
+    let context = contextOrNull;
     context.font = '8px Arial';
 
     // get the font spritesheet.
-    console.log('got font image');
     let fontCoords = getSpritesheetCoordinates(16, 16, fontSSImage);
 
     /*
@@ -267,16 +268,11 @@ async function main(canvas: HTMLCanvasElement) {
         height: 16
     };
 
-    console.log('game assets loaded');
-
-    console.log(canvas);
-
     context.fillStyle = 'red';
     context.fillRect(0, 0, 320, 192);
 
     // Build the bullet holder
     let bullets: Array<Bullet> = [];
-
 
     // Map out the input
     let gameButtonState: {
@@ -336,7 +332,9 @@ async function main(canvas: HTMLCanvasElement) {
         };
     } = {};
 
-    let controlPanel = document.getElementById('control-panel') as HTMLDivElement;
+    let controlPanelOrNull = document.querySelector<HTMLDivElement>('#control-panel');
+    if (!controlPanelOrNull) throw 'Could not get control panel';
+    let controlPanel = controlPanelOrNull;
 
     function updateControllerMapDisplay() {
         // clear em out
@@ -388,7 +386,6 @@ async function main(canvas: HTMLCanvasElement) {
     }
 
     function handleGamepadConnection(e: { gamepad: Gamepad }) {
-        console.log('handleGamepadConnection');
         let gamepadName = e.gamepad.index + e.gamepad.id;
 
         connectedGamepads[gamepadName] = {
@@ -664,21 +661,6 @@ async function main(canvas: HTMLCanvasElement) {
 
         checkForCollisions();
 
-        // UPDATE BULLETS - falsed out because there's no bullets now.
-        /*
-        if (!isCoolingDown('show-get-ready') && !isCoolingDown('p1-inject') && gameButtonState.inject > 0 && bullets.length < 10) {
-    
-          let frame = ship.frame;
-          if (frame < velocities.length) {
-            bullets.push(new Bullet(ship.x + velocities[frame].x, ship.y - velocities[frame].y, 3, 3, velocities[frame].x, velocities[frame].y, 75));
-            setCooldown('p1-inject', 7);
-          } else {
-            console.log('No velocity for frame ' + ship.frame + '\n' + JSON.stringify(velocities, null, 2));
-          }
-    
-        }
-        */
-
         bullets = bullets.filter(b => {
             b.x += 4 * b.xVelocity;
             b.y -= 4 * b.yVelocity;
@@ -839,8 +821,6 @@ async function main(canvas: HTMLCanvasElement) {
         context.fillStyle = 'black';
         context.fillRect(0, 0, canvas.width, canvas.height);
         if (configuringGamepad !== '') {
-            // context.fillStyle = 'yellow';
-            // context.fillText('PRESS ' + gameButtonNameList[configuringGamepadButton].toUpperCase(), 10, 10);
             drawStringCentered(context, canvas.height / 2, 'PRESS ' + gameButtonNameList[configuringGamepadButton].toUpperCase());
         } else if (isDemoMode) {
             if (!roundLoaded) initializeRound();
@@ -852,38 +832,19 @@ async function main(canvas: HTMLCanvasElement) {
                 }
             });
 
-            // context.fillStyle = 'yellow';
-            // context.font = '60px Arial';
-            // context.textAlign = 'center';
-            // context.fillText('STEROIDS', canvas.width / 2, canvas.height / 2, canvas.width * 0.75);
             drawStringCentered(context, canvas.height / 2 - 40, 'STEROIDS');
-            // context.font = '20px Arial';
-            // context.fillText('PRESS INJECT TO START!', canvas.width / 2, canvas.height / 2 + 20, canvas.width * 0.75);
             drawStringCentered(context, canvas.height / 2 + 20, 'press inject');
             drawStringCentered(context, canvas.height / 2 + 40, 'to start');
         } else if (isVictory) {
             context.drawImage(armSSImage, armSSCoords[Math.floor(victoryFrame / 25)].x, armSSCoords[Math.floor(victoryFrame / 25)].y, armSSDimensions.width, armSSDimensions.height, (canvas.width / 2) - (armSSDimensions.width * 2), (canvas.height / 2) - (armSSDimensions.height * 2), armSSDimensions.width * 4, armSSDimensions.height * 4);
-            // context.fillStyle = 'yellow';
-            // context.font = '40px Arial';
-            // context.textAlign = 'center';
-            // context.fillText('TOTALLY JUICED BRO!', canvas.width / 2, canvas.height / 2, canvas.width * 0.75);
             drawStringCentered(context, canvas.height / 2, 'TOTALLY JUICED BRO!');
 
             if (!isCoolingDown('pause-for-victory')) {
-                // context.font = '8px Arial';
-                // context.fillText('PRESS INJECT TO PLAY AGAIN', canvas.width / 2, canvas.height / 2 + 20);
                 drawStringCentered(context, canvas.height / 2, 'PRESS INJECT TO PLAY AGAIN');
             }
         } else {
             // Draw bullets first so they appear from under the ship.
             context.fillStyle = 'yellow';
-
-            // No bullets.
-            /*
-            bullets.forEach(b => {
-              context.fillRect(b.x - (b.width / 2), b.y - (b.height / 2), b.width, b.height);
-            });
-            */
 
             // draw medicine
             if (isMedicineVisible) {
@@ -924,19 +885,10 @@ async function main(canvas: HTMLCanvasElement) {
 
             // Draw get ready message
             if (isCoolingDown('show-get-ready')) {
-                // context.fillStyle = 'yellow';
-                // context.font = '24px Arial';
-                // context.textAlign = 'center';
-                // context.fillText('GET READY TO JUICE!', canvas.width / 2, canvas.height / 2);
                 drawStringCentered(context, canvas.height / 2, 'GET READY TO JUICE!');
             }
 
             if (isCoolingDown('lose')) {
-                // context.fillStyle = 'red';
-                // context.font = '24px Arial';
-                // context.textAlign = 'center';
-                // context.fillText('HEY LOOK', canvas.width / 2, canvas.height / 2);
-                // context.fillText('THE LOSER LOST!', canvas.width / 2, canvas.height / 2 + 20);
                 drawStringCentered(context, canvas.height / 2, 'HEY LOOK');
                 drawStringCentered(context, (canvas.height / 2) + 20, 'THE LOSER LOST!');
             }
