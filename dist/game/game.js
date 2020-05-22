@@ -76,11 +76,11 @@ function sleep(timeInMs) {
 function main(canvas) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log('starting game...');
-        let fontSSImage = yield loadImage('/game/ss_font_16x16_74.png');
-        let shipSSImage = yield loadImage('/game/ss_syringe_8x8_12.png');
-        let medicineImage = yield loadImage('/game/medicine_8x8.png');
-        let buttSSImage = yield loadImage('/game/ss_butt_16x16_16.png');
-        let armSSImage = yield loadImage('/game/ss_arm_16x16_10.png');
+        let fontSSImage = yield loadImage('./game/ss_font_16x16_74.png');
+        let shipSSImage = yield loadImage('./game/ss_syringe_8x8_12.png');
+        let medicineImage = yield loadImage('./game/medicine_8x8.png');
+        let buttSSImage = yield loadImage('./game/ss_butt_16x16_16.png');
+        let armSSImage = yield loadImage('./game/ss_arm_16x16_10.png');
         canvas.width = 320;
         canvas.height = 192;
         let contextOrNull = canvas.getContext('2d');

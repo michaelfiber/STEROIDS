@@ -126,11 +126,11 @@ async function main(canvas: HTMLCanvasElement) {
 
     console.log('starting game...');
 
-    let fontSSImage = await loadImage('/game/ss_font_16x16_74.png');
-    let shipSSImage = await loadImage('/game/ss_syringe_8x8_12.png');
-    let medicineImage = await loadImage('/game/medicine_8x8.png');
-    let buttSSImage = await loadImage('/game/ss_butt_16x16_16.png');
-    let armSSImage = await loadImage('/game/ss_arm_16x16_10.png');
+    let fontSSImage = await loadImage('./game/ss_font_16x16_74.png');
+    let shipSSImage = await loadImage('./game/ss_syringe_8x8_12.png');
+    let medicineImage = await loadImage('./game/medicine_8x8.png');
+    let buttSSImage = await loadImage('./game/ss_butt_16x16_16.png');
+    let armSSImage = await loadImage('./game/ss_arm_16x16_10.png');
 
     // Set up the canvas
     canvas.width = 320;
@@ -412,7 +412,6 @@ async function main(canvas: HTMLCanvasElement) {
     function handleKeydown(evt: KeyboardEvent) {
         if (kbMap[evt.keyCode]) {
             keyboardState[kbMap[evt.keyCode]] = true;
-            //gameButtonState[keyMap[evt.keyCode]]++;
             evt.preventDefault();
         }
     }
@@ -420,7 +419,6 @@ async function main(canvas: HTMLCanvasElement) {
     function handleKeyup(evt: KeyboardEvent) {
         if (kbMap[evt.keyCode]) {
             keyboardState[kbMap[evt.keyCode]] = false;
-            //gameButtonState[keyMap[evt.keyCode]] = 0;
             evt.preventDefault();
         }
     }
