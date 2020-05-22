@@ -1,6 +1,6 @@
 {
-  "name": "steroids-release",
-  "version": "1.0.0",
+  "name": "steroids",
+  "version": "0.0.8",
   "description": "",
   "main": "index.js",
   "scripts": {
