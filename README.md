@@ -4,6 +4,8 @@ A simple browser game inspired by ASTEROIDS. A friend of mine came up with the n
 It's programmed in TypeScript and is 'tested' in modern Firefox and Chrome. 
 
 ## Gameplay
+[Try It Out!](https://michaelfiber.github.io/STEROIDS/dist/index.html)
+
 Use arrows to rotate your syringe and apply thrust. Press the spacebar to activate the tip of the syringe in order to INJECT steroids into butts. Each level the arm icon in the top left corner gets beefier. As you hold INJECT your juice meter empties in the top right corner of the screen. Medicine bottles appear randomly on screen, grab one to fill up your juice!
 
 This thing actually has gamepad support. Plug in a gamepad and tap a button or something (varies between browsers) and it'll prompt you to set up the gamepad.
